@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Krishya's AI Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" /><style>
+  :root {
+    --paper: #f3efe6;
+    --grid: rgba(23, 66, 176, 0.09);
+    --ink: #14202e;
+    --ink-soft: #4a5a6c;
+    --blue: #1742b0;
+    --blue-soft: #e8edf9;
+    --amber: #b45309;
+    --line: #c4ccd6;
+    --line-strong: #14202e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  .sheet {
+    max-width: 1080px;
+    margin: 32px auto 64px;
+    border: 2px solid var(--line-strong);
+    background: rgba(250, 251, 252, 0.6);
+    position: relative;
+  }
+  .sheet::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  .frame { padding: 56px 56px 0; position: relative; z-index: 1; }
+
+  /* ---------- header ---------- */
+  .eyebrow {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-size: clamp(34px, 5.4vw, 58px);
+    line-height: 1.04;
+    max-width: 17ch;
+  }
+  h1 .accent { color: var(--blue); }
+
+  .lede {
+    margin-top: 20px;
+    max-width: 62ch;
+    color: var(--ink-soft);
+    font-size: 17px;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    border: 1px solid var(--line);
+    background: #fff;
+    padding: 5px 12px;
+    color: var(--ink-soft);
+  }
+  .chip a { color: var(--blue); text-decoration: none; }
+  .chip a:hover, .chip a:focus-visible { text-decoration: underline; }
+
+  /* ---------- index strip ---------- */
+  .index {
+    margin-top: 44px;
+    border-top: 2px solid var(--line-strong);
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .index a {
+    display: block;
+    padding: 14px 16px 14px 0;
+    text-decoration: none;
+    color: var(--ink);
+    border-right: 1px solid var(--line);
+    padding-left: 16px;
+  }
+  .index a:first-child { padding-left: 0; }
+  .index a:last-child { border-right: none; }
+  .index a:hover .idx-title, .index a:focus-visible .idx-title { color: var(--blue); }
+  .idx-no {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--amber);
+    display: block;
+  }
+  .idx-title { font-weight: 600; font-size: 15px; transition: color 120ms ease; }
+
+  /* ---------- project sheets ---------- */
+  section.project {
+    margin-top: 72px;
+    scroll-margin-top: 24px;
+  }
+
+  .dwg-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 2px solid var(--line-strong);
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .dwg-no {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--amber);
+  }
+  .dwg-status {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .project h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin-top: 18px;
+    line-height: 1.1;
+  }
+  .project .tagline {
+    color: var(--blue);
+    font-weight: 600;
+    margin-top: 4px;
+    font-size: 16px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    margin-top: 22px;
+  }
+
+  .project p.body { color: var(--ink-soft); margin-bottom: 14px; }
+  .project p.body strong { color: var(--ink); font-weight: 600; }
+
+  .build-list { list-style: none; margin-top: 6px; }
+  .build-list li {
+    padding: 9px 0 9px 26px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .build-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 4px;
+    color: var(--blue);
+  }
+
+  .spec-label {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 18px 0 8px;
+  }
+  .spec-label:first-child { margin-top: 0; }
+
+  table.spec {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    font-size: 13.5px;
+  }
+  table.spec td {
+    border-bottom: 1px solid var(--line);
+    padding: 8px 10px;
+    vertical-align: top;
+  }
+  table.spec tr:last-child td { border-bottom: none; }
+  table.spec td.k {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11.5px;
+    color: var(--amber);
+    white-space: nowrap;
+    width: 1%;
+    padding-right: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .stack-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack-chips span {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    padding: 4px 10px;
+    border: 1px solid rgba(23, 66, 176, 0.25);
+  }
+
+  .links { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .btn {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 9px 18px;
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink);
+    background: #fff;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn:hover, .btn:focus-visible { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn.primary:hover, .btn.primary:focus-visible { background: #0f2d7a; }
+
+  /* ---------- skills ---------- */
+  .skills {
+    margin-top: 80px;
+    border-top: 2px solid var(--line-strong);
+    padding-top: 24px;
+  }
+  .skills h3, .titleblock-wrap h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .skill-col .spec-label { margin-top: 0; }
+  .skill-col p { font-size: 14.5px; color: var(--ink-soft); }
+
+  /* ---------- title block ---------- */
+  .titleblock-wrap { margin-top: 72px; padding-bottom: 56px; }
+  .titleblock {
+    border: 2px solid var(--line-strong);
+    background: #fff;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+  }
+  .tb-cell {
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    padding: 10px 12px;
+  }
+  .tb-cell:nth-child(3n) { border-right: none; }
+  .tb-cell.wide { grid-column: span 2; }
+  .tb-cell .lab {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+  .tb-cell .val { font-weight: 600; color: var(--ink); }
+  .tb-cell .val a { color: var(--blue); text-decoration: none; }
+  .tb-cell .val a:hover, .tb-cell .val a:focus-visible { text-decoration: underline; }
+  .titleblock .tb-row-last { border-bottom: none; }
+
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .frame { padding: 36px 24px 0; }
+    .project-grid { grid-template-columns: 1fr; gap: 24px; }
+    .skills-grid { grid-template-columns: 1fr; gap: 18px; }
+    .index { grid-template-columns: 1fr; }
+    .index a { border-right: none; border-bottom: 1px solid var(--line); padding-left: 0; }
+    .index a:last-child { border-bottom: none; }
+    .titleblock { grid-template-columns: 1fr 1fr; }
+    .tb-cell:nth-child(3n) { border-right: 1px solid var(--line-strong); }
+    .tb-cell:nth-child(2n) { border-right: none; }
+    .sheet { margin: 12px 12px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="frame">
+
+    <!-- ============ HEADER ============ -->
+    <header>
+      <p class="eyebrow">Krishya's Portfolio · Rev A · Toronto, ON</p>
+      <h1>Applied AI for <span class="accent">Engineering & Environment Consulting</span></h1>
+      <p class="lede">
+        I'm <strong>Krishya (or Krish!)</strong>, an <strong>Applied Statistics major with minors in Computer Science & Economics.</strong> I'm a student at
+        <strong>University of Toronto</strong> building lightweight AI workflows, prompt systems, and
+        tool-calling agents. I built this portfolio with a focus on how AI lands inside engineering and
+        environmental consulting. I'm glad you made it here, feel free to reach out if you want to chat about any of the projects or just say hi!
+      </p>
+      <div class="header-meta">
+        <span class="chip"><a href="mailto:tkrishya@gmail.com">tkrishya@gmail.com</a></span>
+        <span class="chip"><a href="https://github.com/Krishya-debug">github.com/Krishya-debug</a></span>
+        <span class="chip"><a href="https://linkedin.com/in/krishya-thakur-uoft">linkedin.com/in/krishya-thakur-uoft</a></span>
+        <span class="chip">Welcome aboard!</span>
+      </div>
+    </header>
+
+    <!-- ============ INDEX ============ -->
+    <nav class="index" aria-label="Project index">
+      <a href="#promptdeck">
+        <span class="idx-no">DWG 01</span>
+        <span class="idx-title">PromptDeck: Reusable prompt library &amp; test runner</span>
+      </a>
+      <a href="#reportlens">
+        <span class="idx-no">DWG 02</span>
+        <span class="idx-title">ReportLens: AI review workflow for environmental reports</span>
+      </a>
+      <a href="#assetpilot">
+        <span class="idx-no">DWG 03</span>
+        <span class="idx-title">AssetPilot: Infrastructure asset triage agent</span>
+      </a>
+    </nav>
+
+    <!-- ============ PROJECT 1 ============ -->
+    <section class="project" id="promptdeck">
+      <div class="dwg-bar">
+        <span class="dwg-no">DWG NO. 01 · PROMPT ENGINEERING / AI ENABLEMENT</span>
+        <span class="dwg-status">STATUS: SHIPPED</span>
+      </div>
+      <h2>PromptDeck</h2>
+      <p class="tagline">A versioned, parameterized prompt library that turns one-off prompts into reusable team assets.</p>
+
+      <div class="project-grid">
+        <div>
+          <p class="body">
+            Teams adopting AI copilots keep rewriting the same prompts and losing the good ones.
+            PromptDeck treats prompts like engineering assets: each template has
+            <strong>typed variables, version history, usage notes, and a built-in test runner</strong>
+            so anyone can fill in the blanks and get a consistent result.
+          </p>
+          <p class="body">
+            The seed library is written for consulting workflows such as proposal section drafting,
+            technical report QA, action items from meeting notes, RFP requirement extraction, etc.
+            Instead of just storing prompts, it also focuses on strong prompt <strong>design</strong>.
+          </p>
+          <p class="spec-label">What I built</p>
+          <ul class="build-list">
+            <li>Template engine with {{ variable }} substitution, required/optional fields, and inline examples</li>
+            <li>Side-by-side test runner: run a template against the Claude API and compare versions on the same input</li>
+            <li>Version history per prompt with changelog notes</li>
+            <li>Copy and shareable links so non-technical users can adopt templates easily</li>
+            <li>Markdown docs auto-generated from the library, ready to drop into a team wiki</li>
+          </ul>
+          <div class="links">
+            <a class="btn primary" href="https://github.com/Krishya-debug/promptdeck/blob/main/README.md">README</a>
+            <a class="btn" href="https://github.com/Krishya-debug/promptdeck">GitHub repo</a>
+          </div>
+        </div>
+        <div>
+          <p class="spec-label">Stack</p>
+          <div class="stack-chips">
+            <span>Python</span><span>FastAPI</span><span>React</span><span>Claude API</span><span>SQLite</span>
+          </div>
+          <p class="spec-label">Summary</p>
+          <table class="spec">
+            <tr><td class="k">01</td><td>Prompt engineering, prompt workflow development, reusable prompt libraries</td></tr>
+            <tr><td class="k">02</td><td>Reusable assets, templates, and documentation</td></tr>
+            <tr><td class="k">03</td><td>Internal enablement that helps scale AI adoption</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT 2 ============ -->
+    <section class="project" id="reportlens">
+      <div class="dwg-bar">
+        <span class="dwg-no">DWG NO. 02 · AI WORKFLOW / DOCUMENT INTELLIGENCE</span>
+        <span class="dwg-status">STATUS: SHIPPED</span>
+      </div>
+      <h2>ReportLens</h2>
+      <p class="tagline">An AI-assisted review workflow for environmental and geotechnical reports.</p>
+
+      <div class="project-grid">
+        <div>
+          <p class="body">
+            Environmental consulting runs on long PDFs of Phase I ESAs, geotechnical investigations, and
+            inspection reports. ReportLens ingests a report and produces a
+            <strong>structured extraction, an executive summary, and a completeness check</strong>
+            against a configurable section checklist, then lets the reviewer ask follow-up
+            questions grounded in the document.
+          </p>
+          <p class="body">
+            Built and tested on publicly available environmental assessment reports, with an
+            emphasis on <strong>trustworthy output</strong>: every extracted claim links back to
+            its page of origin.
+          </p>
+          <p class="spec-label">What I built</p>
+          <ul class="build-list">
+            <li>Python ingestion pipeline that includes PDF parsing, section detection, and chunking tuned for technical reports</li>
+            <li>Structured extraction to JSON (site details, findings, recommendations) with page-level citations</li>
+            <li>Completeness checker that flags missing or thin sections against a report-type checklist</li>
+            <li>Grounded Q&amp;A over the document using embeddings + retrieval</li>
+            <li>Simple Streamlit reviewer UI a non-developer can use without setup instructions</li>
+          </ul>
+          <div class="links">
+            <a class="btn primary" href="https://github.com/Krishya-debug/reportlens/blob/main/README.md">README</a>
+            <a class="btn" href="https://github.com/Krishya-debug/reportlens">GitHub repo</a>
+          </div>
+        </div>
+        <div>
+          <p class="spec-label">Stack</p>
+          <div class="stack-chips">
+            <span>Python</span><span>pdfplumber</span><span>Embeddings / RAG</span><span>Claude API</span><span>Streamlit</span>
+          </div>
+          <p class="spec-label">Summary</p>
+          <table class="spec">
+            <tr><td class="k">01</td><td>Development and testing of lightweight AI-enabled workflows and applications</td></tr>
+            <tr><td class="k">02</td><td>Integrations using APIs and lightweight Python scripting</td></tr>
+            <tr><td class="k">03</td><td>Built directly on environmental and geotechnical report formats</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT 3 ============ -->
+    <section class="project" id="assetpilot">
+      <div class="dwg-bar">
+        <span class="dwg-no">DWG NO. 03 · AI AGENTS / WORKFLOW AUTOMATION</span>
+        <span class="dwg-status">STATUS: SHIPPED</span>
+      </div>
+      <h2>AssetPilot</h2>
+      <p class="tagline">A tool-calling agent that triages Ontario infrastructure asset data into prioritized and concise briefings.</p>
+
+      <div class="project-grid">
+        <div>
+          <p class="body">
+            Municipal asset data is public but underused. AssetPilot is a
+            <strong>multi-step, tool-calling agent</strong> that pulls Ontario open data on
+            watermain breaks, bridge condition indices, road condition ratings. It runs
+            lightweight Python analysis, and writes a prioritized condition briefing about
+            which assets need attention first, and why, in language a project manager can forward.
+          </p>
+          <p class="body">
+            The agent plans its own steps (fetch via API, clean, compute risk scores,
+            then draft the briefing) with every number traceable to the analysis layer,
+            so the LLM <strong>explains the math instead of inventing it</strong>. A scheduled
+            run also emails a weekly digest automatically.
+          </p>
+          <p class="spec-label">What I built</p>
+          <ul class="build-list">
+            <li>Agent loop with defined tools including a data fetcher, pandas analysis runner, and report writer</li>
+            <li>API integrations with Ontario's municipal open data portals, with caching and retries</li>
+            <li>Risk scoring in Python (age, break history, condition index) which is deterministic, testable, and cited by the agent</li>
+            <li>Automated weekly digest with a scheduled run, generated summary, and email delivery</li>
+            <li>Run logs showing each agent step and tool call, for transparency and debugging</li>
+          </ul>
+          <div class="links">
+            <a class="btn primary" href="https://github.com/Krishya-debug/assetpilot/blob/main/README.md">README</a>
+            <a class="btn" href="https://github.com/Krishya-debug/assetpilot">GitHub repo</a>
+          </div>
+        </div>
+        <div>
+          <p class="spec-label">Stack</p>
+          <div class="stack-chips">
+            <span>Python</span><span>Claude tool use</span><span>pandas</span><span>Ontario Open Data APIs</span><span>GitHub Actions</span>
+          </div>
+          <p class="spec-label">Summary</p>
+          <table class="spec">
+            <tr><td class="k">01</td><td>AI CoE initiatives related to AI agents and workflow automation</td></tr>
+            <tr><td class="k">02</td><td>Integrations using APIs and lightweight Python scripting</td></tr>
+            <tr><td class="k">03</td><td>Infrastructure asset management</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills">
+      <h3>Working Set</h3>
+      <div class="skills-grid">
+        <div class="skill-col">
+          <p class="spec-label">AI engineering</p>
+          <p>Prompt design &amp; evaluation, RAG pipelines, tool-calling agents, Claude &amp; OpenAI APIs, structured outputs, grounded generation</p>
+        </div>
+        <div class="skill-col">
+          <p class="spec-label">Build &amp; automate</p>
+          <p>Python, pandas, FastAPI, Streamlit, REST API integration, GitHub Actions, SQLite, lightweight React</p>
+        </div>
+        <div class="skill-col">
+          <p class="spec-label">Ways of working</p>
+          <p>Documentation-first habits, reusable templates, demo-driven enablement, AI-assisted development workflows (Copilot, Claude Code)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TITLE BLOCK ============ -->
+    <div class="titleblock-wrap">
+      <h3>ABOUT</h3>
+      <div class="titleblock">
+        <div class="tb-cell wide"><span class="lab">Prepared by</span><span class="val">Krishya Thakur, University of Toronto</span></div>
+        <div class="tb-cell"><span class="lab">Sheet</span><span class="val">1 of 1</span></div>
+        <div class="tb-cell"><span class="lab">Project</span><span class="val">Applied AI Portfolio</span></div>
+        <div class="tb-cell"><span class="lab">Revision</span><span class="val">A: June 2026</span></div>
+        <div class="tb-cell"><span class="lab">Location</span><span class="val">Toronto, ON</span></div>
+        <div class="tb-cell tb-row-last wide"><span class="lab">Contact</span><span class="val"><a href="mailto:tkrishya@gmail.com">tkrishya@gmail.com</a> · <a href="https://github.com/Krishya-debug">GitHub</a> · <a href="https://www.linkedin.com/in/krishya-thakur-uoft/">LinkedIn</a></span></div>
+        <div class="tb-cell tb-row-last"><span class="lab">Availability</span><span class="val">Co-op / Intern Full-time (scheduled breaks), Part-time (school year)</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
