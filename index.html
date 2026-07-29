@@ -403,7 +403,7 @@
         <div>
           <p class="spec-label">Stack</p>
           <div class="stack-chips">
-            <span>Python</span><span>FastAPI</span><span>React</span><span>Claude API</span><span>SQLite</span>
+            <span>Python</span><span>FastAPI</span><span>Vanilla JS</span><span>Claude API</span><span>SQLite</span>
           </div>
           <p class="spec-label">Summary</p>
           <table class="spec">
@@ -434,7 +434,7 @@
             questions grounded in the document.
           </p>
           <p class="body">
-            Built and tested on publicly available environmental assessment reports, with an
+            Built and tested on fictional environmental assessment reports, with an
             emphasis on <strong>trustworthy output</strong>: every extracted claim links back to
             its page of origin.
           </p>
@@ -443,7 +443,7 @@
             <li>Python ingestion pipeline that includes PDF parsing, section detection, and chunking tuned for technical reports</li>
             <li>Structured extraction to JSON (site details, findings, recommendations) with page-level citations</li>
             <li>Completeness checker that flags missing or thin sections against a report-type checklist</li>
-            <li>Grounded Q&amp;A over the document using embeddings + retrieval</li>
+            <li>Grounded Q&amp;A over the document using BM25 retrieval</li>
             <li>Simple Streamlit reviewer UI a non-developer can use without setup instructions</li>
           </ul>
           <div class="links">
@@ -454,7 +454,7 @@
         <div>
           <p class="spec-label">Stack</p>
           <div class="stack-chips">
-            <span>Python</span><span>pdfplumber</span><span>Embeddings / RAG</span><span>Claude API</span><span>Streamlit</span>
+            <span>Python</span><span>pdfplumber</span><span>BM25 Retrieval</span><span>Claude API</span><span>Streamlit</span>
           </div>
           <p class="spec-label">Summary</p>
           <table class="spec">
@@ -480,22 +480,21 @@
           <p class="body">
             Municipal asset data is public but underused. AssetPilot is a
             <strong>multi-step, tool-calling agent</strong> that pulls Ontario open data on
-            watermain breaks, bridge condition indices, road condition ratings. It runs
+            watermain breaks. It runs
             lightweight Python analysis, and writes a prioritized condition briefing about
             which assets need attention first, and why, in language a project manager can forward.
           </p>
           <p class="body">
             The agent plans its own steps (fetch via API, clean, compute risk scores,
             then draft the briefing) with every number traceable to the analysis layer,
-            so the LLM <strong>explains the math instead of inventing it</strong>. A scheduled
-            run also emails a weekly digest automatically.
+            so the LLM <strong>explains the math instead of inventing it</strong>. A scheduled GitHub Actions run produces a weekly digest.
           </p>
           <p class="spec-label">What I built</p>
           <ul class="build-list">
             <li>Agent loop with defined tools including a data fetcher, pandas analysis runner, and report writer</li>
             <li>API integrations with Ontario's municipal open data portals, with caching and retries</li>
-            <li>Risk scoring in Python (age, break history, condition index) which is deterministic, testable, and cited by the agent</li>
-            <li>Automated weekly digest with a scheduled run, generated summary, and email delivery</li>
+            <li>Risk scoring in Python (age, break history, pipe material) which is deterministic, testable, and cited by the agent</li>
+            <li>Weekly digest via scheduled GitHub Actions run, with optional SMTP delivery</li>
             <li>Run logs showing each agent step and tool call, for transparency and debugging</li>
           </ul>
           <div class="links">
@@ -528,7 +527,7 @@
         </div>
         <div class="skill-col">
           <p class="spec-label">Build &amp; automate</p>
-          <p>Python, pandas, FastAPI, Streamlit, REST API integration, GitHub Actions, SQLite, lightweight React</p>
+          <p>Python, pandas, FastAPI, Streamlit, REST API integration, GitHub Actions, SQLite, vanilla JS</p>
         </div>
         <div class="skill-col">
           <p class="spec-label">Ways of working</p>
